@@ -5,14 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import ru.kostry.nasaapi.databinding.FragmentStartBinding
-import ru.kostry.nasaapi.ui.model.AppViewModel
 
 class StartFragment : Fragment() {
 
     private var binding: FragmentStartBinding? = null
-    private val sharedViewModel: AppViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

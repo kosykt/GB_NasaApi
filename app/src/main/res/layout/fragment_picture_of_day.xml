@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.podfragment.PictureOfDayFragment">
+    tools:context=".ui.podfragment.view.PictureOfDayFragment">
 
     <data>
 
         <variable
             name="pcdFragment"
-            type="ru.kostry.nasaapi.ui.podfragment.PictureOfDayFragment" />
+            type="ru.kostry.nasaapi.ui.podfragment.view.PictureOfDayFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
