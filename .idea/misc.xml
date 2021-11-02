@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.22256410256410256" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/fragment_picture_of_day.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_start.xml" value="0.19791666666666666" />
       </map>
     </option>

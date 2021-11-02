@@ -1,4 +1,4 @@
-package ru.kostry.nasaapi.ui.startfragment
+package ru.kostry.nasaapi.ui.podfragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import ru.kostry.nasaapi.databinding.FragmentStartBinding
+import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
 import ru.kostry.nasaapi.ui.model.AppViewModel
 
-class StartFragment : Fragment() {
+class PictureOfDayFragment : Fragment() {
 
-    private var binding: FragmentStartBinding? = null
+    private var binding: FragmentPictureOfDayBinding? = null
     private val sharedViewModel: AppViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -19,7 +19,7 @@ class StartFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val fragmentBinding = FragmentStartBinding.inflate(inflater, container, false)
+        val fragmentBinding = FragmentPictureOfDayBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root
     }
