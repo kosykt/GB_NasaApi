@@ -10,7 +10,7 @@ class PictureOfTheDayViewModel: ViewModel() {
     val onMainFAB: LiveData<Boolean> = _onMainFAB
 
     init {
-        _onMainFAB.value = false
+        _onMainFAB.value = true
     }
 
     fun setOnMainFAB(position: Boolean){
