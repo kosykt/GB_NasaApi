@@ -9,6 +9,10 @@ class PictureOfTheDayViewModel: ViewModel() {
     private var _onMainFAB = MutableLiveData<Boolean>()
     val onMainFAB: LiveData<Boolean> = _onMainFAB
 
+    init {
+        _onMainFAB.value = false
+    }
+
     fun setOnMainFAB(position: Boolean){
         _onMainFAB.value = position
     }
