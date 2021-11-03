@@ -15,7 +15,7 @@ class PictureOfDayFragment : Fragment() {
     private var _binding: FragmentPictureOfDayBinding? = null
     private val binding get() = _binding!!
 
-    private val sharedViewModel: PictureOfTheDayViewModel by activityViewModels()
+    private val pcdViewModel: PictureOfTheDayViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +31,7 @@ class PictureOfDayFragment : Fragment() {
 
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
-            viewModel = sharedViewModel
+            viewModel = pcdViewModel
             pcdFragment = this@PictureOfDayFragment
         }
     }
@@ -42,6 +42,13 @@ class PictureOfDayFragment : Fragment() {
     }
 
     fun touchFAB(){
-        Toast.makeText(context,"asd",Toast.LENGTH_SHORT).show()
+
+        if (pcdViewModel.onMainFAB){
+            pcdViewModel.setOnMainFAB(false)
+            Toast.makeText(context,"true",Toast.LENGTH_SHORT).show()
+        }else{
+            pcdViewModel.setOnMainFAB(true)
+            Toast.makeText(context,"false",Toast.LENGTH_SHORT).show()
+        }
     }
 }
