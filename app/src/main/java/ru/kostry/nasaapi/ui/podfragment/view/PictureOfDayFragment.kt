@@ -46,7 +46,6 @@ class PictureOfDayFragment : Fragment() {
     fun touchFAB(){
         if (pcdViewModel.onMainFAB.value == true){
             changeFAB(false, R.drawable.ic_back_fab, null, BottomAppBar.FAB_ALIGNMENT_MODE_END)
-
         }else{
             changeFAB(true, R.drawable.ic_plus_fab, R.drawable.ic_hamburger_menu_bottom_bar, BottomAppBar.FAB_ALIGNMENT_MODE_CENTER)
         }
