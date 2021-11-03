@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -23,7 +22,7 @@ class PictureOfDayFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val fragmentBinding = FragmentPictureOfDayBinding.inflate(inflater, container, false)
         _binding = fragmentBinding
         return fragmentBinding.root
@@ -32,7 +31,7 @@ class PictureOfDayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.apply {
+        binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = pcdViewModel
             pcdFragment = this@PictureOfDayFragment
@@ -46,21 +45,19 @@ class PictureOfDayFragment : Fragment() {
 
     fun touchFAB(){
         if (pcdViewModel.onMainFAB.value == true){
-            pcdViewModel.setOnMainFAB(false)
-            binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, R.drawable.ic_back_fab) })
-            binding.bottomAppBar.apply {
-                navigationIcon = null
-                fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-                replaceMenu(R.menu.menu_bottom_bar_other_screen)
-            }
+            changeFAB(false, R.drawable.ic_back_fab, null, BottomAppBar.FAB_ALIGNMENT_MODE_END)
+
         }else{
-            pcdViewModel.setOnMainFAB(true)
-            binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, R.drawable.ic_plus_fab) })
-            binding.bottomAppBar.apply {
-                navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_hamburger_menu_bottom_bar)
-                fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
-                replaceMenu(R.menu.menu_bottom_bar)
-            }
+            changeFAB(true, R.drawable.ic_plus_fab, R.drawable.ic_hamburger_menu_bottom_bar, BottomAppBar.FAB_ALIGNMENT_MODE_CENTER)
+        }
+    }
+
+    private fun changeFAB(position: Boolean, iconFAB: Int, iconNav: Int?, alignmentMode: Int) {
+        pcdViewModel.setOnMainFAB(position)
+        binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, iconFAB) })
+        binding.bottomAppBar.apply {
+            navigationIcon = iconNav?.let { ContextCompat.getDrawable(context, it) }
+            fabAlignmentMode = alignmentMode
         }
     }
 }
