@@ -43,7 +43,7 @@ class PictureOfDayFragment : Fragment() {
 
     fun touchFAB(){
 
-        if (pcdViewModel.onMainFAB){
+        if (pcdViewModel.onMainFAB.value == true){
             pcdViewModel.setOnMainFAB(false)
             Toast.makeText(context,"true",Toast.LENGTH_SHORT).show()
         }else{
