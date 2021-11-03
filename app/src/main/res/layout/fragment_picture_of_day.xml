@@ -9,6 +9,10 @@
         <variable
             name="pcdFragment"
             type="ru.kostry.nasaapi.ui.podfragment.view.PictureOfDayFragment" />
+
+        <variable
+            name="viewModel"
+            type="ru.kostry.nasaapi.ui.podfragment.viewmodel.PictureOfTheDayViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -83,6 +87,7 @@
             android:backgroundTint="@color/colorAccent"
             app:layout_anchor="@id/bottom_app_bar"
             app:srcCompat="@drawable/ic_plus_fab"
-            app:tint="#FFFFFF" />
+            app:tint="#FFFFFF"
+            android:onClick="@{()->pcdFragment.touchFAB()}"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
