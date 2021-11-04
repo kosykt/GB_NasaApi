@@ -7,7 +7,7 @@ import ru.kostry.nasaapi.BuildConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.kostry.nasaapi.ui.podfragment.model.PODAppState
+import ru.kostry.nasaapi.model.PODAppState
 import ru.kostry.nasaapi.ui.podfragment.model.data.PODServerResponseData
 import ru.kostry.nasaapi.ui.podfragment.model.repository.PODRetrofitImpl
 

@@ -14,7 +14,8 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
-import ru.kostry.nasaapi.ui.podfragment.model.PODAppState
+import ru.kostry.nasaapi.model.PODAppState
+import ru.kostry.nasaapi.ui.podfragment.model.data.PODServerResponseData
 import ru.kostry.nasaapi.ui.podfragment.viewmodel.PictureOfTheDayViewModel
 
 
@@ -54,19 +55,13 @@ class PictureOfDayFragment : Fragment() {
         super.onDestroyView()
     }
 
-    private fun bottomSheetVisibility(state: Int) {
-        bottomSheetBehavior.state = state
-    }
-
     private fun renderData(data: PODAppState) {
         when (data) {
-            is PODAppState.Success -> {
-                val serverResponseData = data.serverResponseData
-                val url = serverResponseData.url
-                if (url.isNullOrEmpty()) {
+            is PODAppState.Success<*> -> {
+                if ((data.stateData as PODServerResponseData).url.isNullOrEmpty()) {
                     Toast.makeText(context, "is empty", Toast.LENGTH_SHORT).show()
                 } else {
-                    binding.imageView.load(url) {
+                    binding.imageView.load((data.stateData).url) {
                         lifecycle(this@PictureOfDayFragment)
                         error(R.drawable.ic_load_error_vector)
                         placeholder(R.drawable.ic_no_photo_vector)
@@ -81,6 +76,10 @@ class PictureOfDayFragment : Fragment() {
                 Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun bottomSheetVisibility(state: Int) {
+        bottomSheetBehavior.state = state
     }
 
     private fun changeFAB(iconFAB: Int, alignmentMode: Int, ) {

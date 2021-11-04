@@ -9,7 +9,8 @@
     app:behavior_hideable="true"
     app:behavior_peekHeight="50dp"
     android:visibility="visible"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:context=".ui.podfragment.view.PictureOfDayFragment">
 
     <View
         android:id="@+id/bottom_sheet_line"
