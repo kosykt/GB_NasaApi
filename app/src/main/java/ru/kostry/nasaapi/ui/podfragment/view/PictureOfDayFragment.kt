@@ -83,33 +83,18 @@ class PictureOfDayFragment : Fragment() {
         }
     }
 
-    private fun changeFAB(
-        iconFAB: Int,
-        iconNav: Int?,
-        alignmentMode: Int,
-    ) {
+    private fun changeFAB(iconFAB: Int, alignmentMode: Int, ) {
         binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, iconFAB) })
-        binding.bottomAppBar.apply {
-            navigationIcon = iconNav?.let { ContextCompat.getDrawable(context, it) }
-            fabAlignmentMode = alignmentMode
-        }
-
-
+        binding.bottomAppBar.fabAlignmentMode = alignmentMode
     }
 
     fun touchFAB(){
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED){
-            changeFAB(
-                R.drawable.ic_back_fab,
-                null,
-                BottomAppBar.FAB_ALIGNMENT_MODE_END)
+            changeFAB(R.drawable.ic_back_fab, BottomAppBar.FAB_ALIGNMENT_MODE_END)
             bottomSheetVisibility(BottomSheetBehavior.STATE_HALF_EXPANDED)
 
         }else{
-            changeFAB(
-                R.drawable.ic_plus_fab,
-                R.drawable.ic_hamburger_menu_bottom_bar,
-                BottomAppBar.FAB_ALIGNMENT_MODE_CENTER)
+            changeFAB(R.drawable.ic_plus_fab, BottomAppBar.FAB_ALIGNMENT_MODE_CENTER)
             bottomSheetVisibility(BottomSheetBehavior.STATE_COLLAPSED)
         }
     }
