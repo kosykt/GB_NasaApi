@@ -4,13 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
+import ru.kostry.nasaapi.ui.podfragment.model.PODAppState
 import ru.kostry.nasaapi.ui.podfragment.viewmodel.PictureOfTheDayViewModel
+
 
 class PictureOfDayFragment : Fragment() {
 
@@ -36,11 +41,39 @@ class PictureOfDayFragment : Fragment() {
             viewModel = pcdViewModel
             pcdFragment = this@PictureOfDayFragment
         }
+
+        pcdViewModel.getData().observe(viewLifecycleOwner, {renderData(it)})
+
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun renderData(data: PODAppState) {
+        when (data) {
+            is PODAppState.Success -> {
+                val serverResponseData = data.serverResponseData
+                val url = serverResponseData.url
+                if (url.isNullOrEmpty()) {
+                    Toast.makeText(context, "is empty", Toast.LENGTH_SHORT).show()
+                } else {
+                    binding.imageView.load(url) {
+                        lifecycle(this@PictureOfDayFragment)
+                        error(R.drawable.ic_load_error_vector)
+                        placeholder(R.drawable.ic_no_photo_vector)
+                    }
+                }
+            }
+            is PODAppState.Loading -> {
+                //showLoading()
+            }
+            is PODAppState.Error -> {
+                //showError(data.error.message)
+                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     fun touchFAB(){
