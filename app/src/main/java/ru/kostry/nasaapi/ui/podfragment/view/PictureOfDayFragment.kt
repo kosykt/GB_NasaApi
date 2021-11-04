@@ -44,38 +44,13 @@ class PictureOfDayFragment : Fragment() {
             viewModel = pcdViewModel
             pcdFragment = this@PictureOfDayFragment
         }
-        pcdViewModel.getData().observe(viewLifecycleOwner, {renderData(it)})
         bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_container)!!)
         bottomSheetVisibility(BottomSheetBehavior.STATE_COLLAPSED)
-
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    private fun renderData(data: PODAppState) {
-        when (data) {
-            is PODAppState.Success<*> -> {
-                if ((data.stateData as PODServerResponseData).url.isNullOrEmpty()) {
-                    Toast.makeText(context, "is empty", Toast.LENGTH_SHORT).show()
-                } else {
-                    binding.imageView.load((data.stateData).url) {
-                        lifecycle(this@PictureOfDayFragment)
-                        error(R.drawable.ic_load_error_vector)
-                        placeholder(R.drawable.ic_no_photo_vector)
-                    }
-                }
-            }
-            is PODAppState.Loading -> {
-                //showLoading()
-            }
-            is PODAppState.Error -> {
-                //showError(data.error.message)
-                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     private fun bottomSheetVisibility(state: Int) {
@@ -91,7 +66,6 @@ class PictureOfDayFragment : Fragment() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED){
             changeFAB(R.drawable.ic_back_fab, BottomAppBar.FAB_ALIGNMENT_MODE_END)
             bottomSheetVisibility(BottomSheetBehavior.STATE_HALF_EXPANDED)
-
         }else{
             changeFAB(R.drawable.ic_plus_fab, BottomAppBar.FAB_ALIGNMENT_MODE_CENTER)
             bottomSheetVisibility(BottomSheetBehavior.STATE_COLLAPSED)
