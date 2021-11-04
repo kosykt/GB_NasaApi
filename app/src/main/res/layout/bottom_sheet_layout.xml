@@ -8,8 +8,7 @@
     android:background="#f6f6fa"
     app:behavior_hideable="true"
     app:behavior_peekHeight="50dp"
-    android:visibility="gone"
-    tools:visibility="visible"
+    android:visibility="visible"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <View

@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import coil.load
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
 import ru.kostry.nasaapi.ui.podfragment.model.PODAppState
@@ -24,6 +25,8 @@ class PictureOfDayFragment : Fragment() {
 
     private val pcdViewModel: PictureOfTheDayViewModel by activityViewModels()
 
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,21 +38,20 @@ class PictureOfDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = pcdViewModel
             pcdFragment = this@PictureOfDayFragment
         }
-
         pcdViewModel.getData().observe(viewLifecycleOwner, {renderData(it)})
-
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
+
+
 
     private fun renderData(data: PODAppState) {
         when (data) {
@@ -76,20 +78,39 @@ class PictureOfDayFragment : Fragment() {
         }
     }
 
-    fun touchFAB(){
-        if (pcdViewModel.onMainFAB.value == true){
-            changeFAB(false, R.drawable.ic_back_fab, null, BottomAppBar.FAB_ALIGNMENT_MODE_END)
-        }else{
-            changeFAB(true, R.drawable.ic_plus_fab, R.drawable.ic_hamburger_menu_bottom_bar, BottomAppBar.FAB_ALIGNMENT_MODE_CENTER)
-        }
-    }
-
-    private fun changeFAB(position: Boolean, iconFAB: Int, iconNav: Int?, alignmentMode: Int) {
+    private fun changeFAB(
+        position: Boolean,
+        iconFAB: Int,
+        iconNav: Int?,
+        alignmentMode: Int,
+        state: Int
+    ) {
         pcdViewModel.setOnMainFAB(position)
         binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, iconFAB) })
         binding.bottomAppBar.apply {
             navigationIcon = iconNav?.let { ContextCompat.getDrawable(context, it) }
             fabAlignmentMode = alignmentMode
+        }
+        bottomSheetBehavior = BottomSheetBehavior.from(view?.findViewById(R.id.bottom_sheet_container)!!)
+        bottomSheetBehavior.state = state
+    }
+
+    fun touchFAB(){
+        if (pcdViewModel.onMainFAB.value == true){
+            changeFAB(false,
+                R.drawable.ic_back_fab,
+                null,
+                BottomAppBar.FAB_ALIGNMENT_MODE_END,
+                BottomSheetBehavior.STATE_HALF_EXPANDED)
+
+        }else{
+            changeFAB(
+                true,
+                R.drawable.ic_plus_fab,
+                R.drawable.ic_hamburger_menu_bottom_bar,
+                BottomAppBar.FAB_ALIGNMENT_MODE_CENTER,
+                BottomSheetBehavior.STATE_COLLAPSED
+            )
         }
     }
 }
