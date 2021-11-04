@@ -16,17 +16,6 @@ class PictureOfTheDayViewModel(
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl())
     : ViewModel() {
 
-    private var _onMainFAB = MutableLiveData<Boolean>()
-    val onMainFAB: LiveData<Boolean> = _onMainFAB
-
-    init {
-        _onMainFAB.value = true
-    }
-
-    fun setOnMainFAB(position: Boolean){
-        _onMainFAB.value = position
-    }
-
     fun getData(): LiveData<PODAppState> {
         sendServerRequest()
         return liveDataForViewToObserve

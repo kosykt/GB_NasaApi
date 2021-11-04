@@ -44,6 +44,9 @@ class PictureOfDayFragment : Fragment() {
             pcdFragment = this@PictureOfDayFragment
         }
         pcdViewModel.getData().observe(viewLifecycleOwner, {renderData(it)})
+        bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_container)!!)
+        bottomSheetVisibility(BottomSheetBehavior.STATE_COLLAPSED)
+
     }
 
     override fun onDestroyView() {
@@ -51,7 +54,9 @@ class PictureOfDayFragment : Fragment() {
         super.onDestroyView()
     }
 
-
+    private fun bottomSheetVisibility(state: Int) {
+        bottomSheetBehavior.state = state
+    }
 
     private fun renderData(data: PODAppState) {
         when (data) {
@@ -79,38 +84,33 @@ class PictureOfDayFragment : Fragment() {
     }
 
     private fun changeFAB(
-        position: Boolean,
         iconFAB: Int,
         iconNav: Int?,
         alignmentMode: Int,
-        state: Int
     ) {
-        pcdViewModel.setOnMainFAB(position)
         binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, iconFAB) })
         binding.bottomAppBar.apply {
             navigationIcon = iconNav?.let { ContextCompat.getDrawable(context, it) }
             fabAlignmentMode = alignmentMode
         }
-        bottomSheetBehavior = BottomSheetBehavior.from(view?.findViewById(R.id.bottom_sheet_container)!!)
-        bottomSheetBehavior.state = state
+
+
     }
 
     fun touchFAB(){
-        if (pcdViewModel.onMainFAB.value == true){
-            changeFAB(false,
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED){
+            changeFAB(
                 R.drawable.ic_back_fab,
                 null,
-                BottomAppBar.FAB_ALIGNMENT_MODE_END,
-                BottomSheetBehavior.STATE_HALF_EXPANDED)
+                BottomAppBar.FAB_ALIGNMENT_MODE_END)
+            bottomSheetVisibility(BottomSheetBehavior.STATE_HALF_EXPANDED)
 
         }else{
             changeFAB(
-                true,
                 R.drawable.ic_plus_fab,
                 R.drawable.ic_hamburger_menu_bottom_bar,
-                BottomAppBar.FAB_ALIGNMENT_MODE_CENTER,
-                BottomSheetBehavior.STATE_COLLAPSED
-            )
+                BottomAppBar.FAB_ALIGNMENT_MODE_CENTER)
+            bottomSheetVisibility(BottomSheetBehavior.STATE_COLLAPSED)
         }
     }
 }
