@@ -1,5 +1,7 @@
 package ru.kostry.nasaapi.ui.podfragment.viewmodel
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import retrofit2.Call
@@ -20,10 +22,15 @@ class PictureOfTheDayViewModel : ViewModel() {
 
     private var _title = MutableLiveData<String>()
     val title = _title
+
+    private var _text = MutableLiveData<String>()
+    val text = _text
     
     private fun saveResponseStrings(success: PODAppState.Success<PODServerResponseData>) {
-        _uri.value = success.stateData.url.toString()
-        _title.value = success.stateData.title.toString()
+        _uri.value = success.stateData.url!!
+        _title.value = success.stateData.title!!
+        _text.value = success.stateData.explanation!!
+
     }
 
     init {
