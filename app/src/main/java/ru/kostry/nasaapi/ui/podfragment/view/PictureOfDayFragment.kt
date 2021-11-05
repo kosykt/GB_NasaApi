@@ -41,7 +41,7 @@ class PictureOfDayFragment : Fragment() {
         bottomSheetBehavior =
             BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_container)!!)
 
-        bottomSheetOptions(BottomSheetBehavior.STATE_HIDDEN, null)
+        bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, null)
     }
 
     override fun onDestroyView() {
@@ -50,20 +50,14 @@ class PictureOfDayFragment : Fragment() {
     }
 
     fun touchFAB() {
-        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
-            changeFAB(R.drawable.ic_back_fab)
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
             bottomSheetOptions(
                 BottomSheetBehavior.STATE_HALF_EXPANDED,
                 pcdViewModel.explanation.value.toString()
             )
         } else {
-            changeFAB(R.drawable.ic_plus_fab)
-            bottomSheetOptions(BottomSheetBehavior.STATE_HIDDEN, null)
+            bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, null)
         }
-    }
-
-    private fun changeFAB(iconFAB: Int) {
-        binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, iconFAB) })
     }
 
     private fun bottomSheetOptions(state: Int, explanation: String?) {
