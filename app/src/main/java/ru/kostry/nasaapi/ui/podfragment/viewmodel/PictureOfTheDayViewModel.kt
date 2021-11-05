@@ -14,24 +14,31 @@ class PictureOfTheDayViewModel : ViewModel() {
 
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
     private val liveDataForViewToObserve: MutableLiveData<PODAppState> = MutableLiveData()
+
+    private val _positionFABisCenter = MutableLiveData<Boolean>()
+    var positionFABisCenter = _positionFABisCenter
     
     private val _uri = MutableLiveData<String>()
-    val uri = _uri
+    var uri = _uri
 
     private val _title = MutableLiveData<String>()
-    val title = _title
+    var title = _title
 
     private val _explanation = MutableLiveData<String>()
-    val explanation = _explanation
+    var explanation = _explanation
 
     private fun saveResponseStrings(success: PODServerResponseData?) {
         _uri.value = success?.url!!
         _title.value = success.title.toString()
-        explanation.value = success.explanation.toString()
+        _explanation.value = success.explanation.toString()
     }
 
     init {
         sendServerRequest()
+    }
+
+    fun setPositionFABisCenter(position: Boolean){
+        _positionFABisCenter.value = position
     }
 
     private fun sendServerRequest() {
