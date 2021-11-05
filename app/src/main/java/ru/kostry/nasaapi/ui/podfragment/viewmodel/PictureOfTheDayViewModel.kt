@@ -17,7 +17,7 @@ class PictureOfTheDayViewModel : ViewModel() {
 
     private val _positionFABisCenter = MutableLiveData<Boolean>()
     var positionFABisCenter = _positionFABisCenter
-    
+
     private val _uri = MutableLiveData<String>()
     var uri = _uri
 
@@ -37,7 +37,7 @@ class PictureOfTheDayViewModel : ViewModel() {
         sendServerRequest()
     }
 
-    fun setPositionFABisCenter(position: Boolean){
+    fun setPositionFABisCenter(position: Boolean) {
         _positionFABisCenter.value = position
     }
 

@@ -1,7 +1,6 @@
 package ru.kostry.nasaapi.ui.podfragment.view
 
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import coil.load
@@ -17,14 +16,4 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             error(R.drawable.ic_broken_image)
         }
     }
-}
-
-@BindingAdapter("setTitlePod")
-fun bindTitle(textView: TextView, title: String?) {
-    textView.text = title
-}
-
-@BindingAdapter("setTextPod")
-fun bindText(textView: TextView, text: String?) {
-    textView.text = text
 }

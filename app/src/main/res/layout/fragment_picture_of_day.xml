@@ -36,12 +36,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:contentDescription="@string/photo_of_the_day_stub"
+                    app:imageUrl="@{viewModel.uri}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_no_photo_vector"
-                    app:imageUrl="@{viewModel.uri}"/>
+                    app:srcCompat="@drawable/ic_no_photo_vector" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -66,9 +66,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorAccent"
+            android:onClick="@{()->pcdFragment.touchFAB()}"
             app:layout_anchor="@id/bottom_app_bar"
             app:srcCompat="@drawable/ic_plus_fab"
-            app:tint="#FFFFFF"
-            android:onClick="@{()->pcdFragment.touchFAB()}"/>
+            app:tint="#FFFFFF" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
