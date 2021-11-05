@@ -15,9 +15,6 @@ class PictureOfTheDayViewModel : ViewModel() {
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
     private val liveDataForViewToObserve: MutableLiveData<PODAppState> = MutableLiveData()
 
-    private val _positionFABisCenter = MutableLiveData<Boolean>()
-    var positionFABisCenter = _positionFABisCenter
-
     private val _uri = MutableLiveData<String>()
     var uri = _uri
 
@@ -39,10 +36,6 @@ class PictureOfTheDayViewModel : ViewModel() {
 
     init {
         sendServerRequest()
-    }
-
-    fun setPositionFABisCenter(position: Boolean) {
-        _positionFABisCenter.value = position
     }
 
     private fun sendServerRequest() {

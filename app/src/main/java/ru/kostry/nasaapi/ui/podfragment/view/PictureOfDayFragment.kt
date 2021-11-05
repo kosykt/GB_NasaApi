@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
@@ -39,13 +38,10 @@ class PictureOfDayFragment : Fragment() {
             viewModel = pcdViewModel
             pcdFragment = this@PictureOfDayFragment
         }
-
         bottomSheetBehavior =
             BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_container)!!)
 
-        changeFAB(R.drawable.ic_plus_fab, BottomAppBar.FAB_ALIGNMENT_MODE_CENTER)
-        bottomSheetVisibility(BottomSheetBehavior.STATE_COLLAPSED, true)
-        setTextToBottomSheet(null, null)
+        bottomSheetOptions(BottomSheetBehavior.STATE_HIDDEN, null)
     }
 
     override fun onDestroyView() {
@@ -54,30 +50,24 @@ class PictureOfDayFragment : Fragment() {
     }
 
     fun touchFAB() {
-        if (pcdViewModel.positionFABisCenter.value == true && bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
-            changeFAB(R.drawable.ic_back_fab, BottomAppBar.FAB_ALIGNMENT_MODE_END)
-            bottomSheetVisibility(BottomSheetBehavior.STATE_HALF_EXPANDED, false)
-            setTextToBottomSheet(pcdViewModel.title.value.toString(),
-                pcdViewModel.explanation.value.toString())
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
+            changeFAB(R.drawable.ic_back_fab)
+            bottomSheetOptions(
+                BottomSheetBehavior.STATE_HALF_EXPANDED,
+                pcdViewModel.explanation.value.toString()
+            )
         } else {
-            changeFAB(R.drawable.ic_plus_fab, BottomAppBar.FAB_ALIGNMENT_MODE_CENTER)
-            bottomSheetVisibility(BottomSheetBehavior.STATE_COLLAPSED, true)
-            setTextToBottomSheet(null, null)
+            changeFAB(R.drawable.ic_plus_fab)
+            bottomSheetOptions(BottomSheetBehavior.STATE_HIDDEN, null)
         }
     }
 
-    private fun changeFAB(iconFAB: Int, alignmentMode: Int) {
+    private fun changeFAB(iconFAB: Int) {
         binding.fab.setImageDrawable(context?.let { ContextCompat.getDrawable(it, iconFAB) })
-        binding.bottomAppBar.fabAlignmentMode = alignmentMode
     }
 
-    private fun bottomSheetVisibility(state: Int, position: Boolean) {
+    private fun bottomSheetOptions(state: Int, explanation: String?) {
         bottomSheetBehavior.state = state
-        pcdViewModel.setPositionFABisCenter(position)
-    }
-
-    private fun setTextToBottomSheet(title: String?, explanation: String?) {
-        binding.bottomSheetContainer.bottomSheetDescriptionHeader.text = title
         binding.bottomSheetContainer.bottomSheetDescription.text = explanation
     }
 }
