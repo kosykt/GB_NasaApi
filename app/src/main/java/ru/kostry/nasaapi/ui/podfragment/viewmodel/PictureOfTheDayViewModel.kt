@@ -51,7 +51,7 @@ class PictureOfTheDayViewModel : ViewModel() {
         _status.value = PODApiStatus.LOADING
     }
 
-    fun sendServerRequest() {
+    private fun sendServerRequest() {
         _status.value = PODApiStatus.LOADING
         val apiKey: String = BuildConfig.NASA_API_KEY
         retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apiKey).enqueue(object :

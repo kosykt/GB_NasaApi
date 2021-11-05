@@ -12,7 +12,6 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
-import ru.kostry.nasaapi.ui.podfragment.viewmodel.PODApiStatus
 import ru.kostry.nasaapi.ui.podfragment.viewmodel.PictureOfTheDayViewModel
 
 class PictureOfDayFragment : Fragment() {
@@ -48,7 +47,8 @@ class PictureOfDayFragment : Fragment() {
 
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                data =
+                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
     }
@@ -59,18 +59,13 @@ class PictureOfDayFragment : Fragment() {
     }
 
     fun touchFAB() {
-        if (podViewModel.status.value == PODApiStatus.ERROR){
-            podViewModel.sendServerRequest()
-            binding.errorTextView.visibility = View.INVISIBLE
-        }else {
-            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                bottomSheetOptions(
-                    BottomSheetBehavior.STATE_HALF_EXPANDED,
-                    podViewModel.explanation.value.toString()
-                )
-            } else {
-                bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, "")
-            }
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            bottomSheetOptions(
+                BottomSheetBehavior.STATE_HALF_EXPANDED,
+                podViewModel.explanation.value.toString()
+            )
+        } else {
+            bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, "")
         }
     }
 
