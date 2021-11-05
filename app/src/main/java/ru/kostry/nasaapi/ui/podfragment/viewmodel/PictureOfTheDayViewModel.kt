@@ -1,7 +1,6 @@
 package ru.kostry.nasaapi.ui.podfragment.viewmodel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import retrofit2.Call
@@ -17,20 +16,19 @@ class PictureOfTheDayViewModel : ViewModel() {
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
     private val liveDataForViewToObserve: MutableLiveData<PODAppState> = MutableLiveData()
     
-    private var _uri = MutableLiveData<String>()
+    private val _uri = MutableLiveData<String>()
     val uri = _uri
 
-    private var _title = MutableLiveData<String>()
+    private val _title = MutableLiveData<String>()
     val title = _title
 
-    private var _text = MutableLiveData<String>()
+    private val _text = MutableLiveData<String>()
     val text = _text
-    
-    private fun saveResponseStrings(success: PODAppState.Success<PODServerResponseData>) {
-        _uri.value = success.stateData.url!!
-        _title.value = success.stateData.title!!
-        _text.value = success.stateData.explanation!!
 
+    private fun saveResponseStrings(success: PODServerResponseData?) {
+        _uri.value = success?.url!!
+        _title.value = success.title.toString()
+        _text.value = success.explanation.toString()
     }
 
     init {
@@ -46,7 +44,7 @@ class PictureOfTheDayViewModel : ViewModel() {
                 response: Response<PODServerResponseData>,
             ) {
                 if (response.isSuccessful && response.body() != null) {
-                    saveResponseStrings(PODAppState.Success(response.body()!!))
+                    saveResponseStrings(response.body())
                 } else {
                     val message = response.message()
                     if (message.isNullOrEmpty()) {
