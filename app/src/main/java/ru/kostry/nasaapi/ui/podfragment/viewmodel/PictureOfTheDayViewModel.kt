@@ -1,31 +1,35 @@
 package ru.kostry.nasaapi.ui.podfragment.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.kostry.nasaapi.BuildConfig
-import ru.kostry.nasaapi.model.PODAppState
 import ru.kostry.nasaapi.ui.podfragment.model.data.PODServerResponseData
 import ru.kostry.nasaapi.ui.podfragment.model.repository.PODRetrofitImpl
+
+enum class PODApiStatus { LOADING, ERROR, DONE }
 
 class PictureOfTheDayViewModel : ViewModel() {
 
     private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
-    private val liveDataForViewToObserve: MutableLiveData<PODAppState> = MutableLiveData()
+
+    private val _status = MutableLiveData<PODApiStatus>()
+    val status: LiveData<PODApiStatus> = _status
 
     private val _uri = MutableLiveData<String>()
-    var uri = _uri
+    val uri = _uri
 
     private val _title = MutableLiveData<String>()
-    var title = _title
+    val title = _title
 
     private val _explanation = MutableLiveData<String>()
-    var explanation = _explanation
+    val explanation = _explanation
 
     private val _date = MutableLiveData<String>()
-    var date = _date
+    val date = _date
 
     private fun saveResponseStrings(success: PODServerResponseData?) {
         _uri.value = success?.url!!
@@ -38,7 +42,12 @@ class PictureOfTheDayViewModel : ViewModel() {
         sendServerRequest()
     }
 
+    fun setStatus(){
+        _status.value = PODApiStatus.LOADING
+    }
+
     private fun sendServerRequest() {
+        _status.value = PODApiStatus.LOADING
         val apiKey: String = BuildConfig.NASA_API_KEY
         retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apiKey).enqueue(object :
             Callback<PODServerResponseData> {
@@ -48,20 +57,20 @@ class PictureOfTheDayViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful && response.body() != null) {
                     saveResponseStrings(response.body())
+                    _status.value = PODApiStatus.DONE
                 } else {
                     val message = response.message()
+                    _status.value = PODApiStatus.ERROR
                     if (message.isNullOrEmpty()) {
-                        liveDataForViewToObserve.value =
-                            PODAppState.Error(Throwable("Unidentified error"))
+                        _status.value = PODApiStatus.ERROR
                     } else {
-                        liveDataForViewToObserve.value =
-                            PODAppState.Error(Throwable(message))
+                        _status.value = PODApiStatus.ERROR
                     }
                 }
             }
 
             override fun onFailure(call: Call<PODServerResponseData>, t: Throwable) {
-                liveDataForViewToObserve.value = PODAppState.Error(t)
+                _status.value = PODApiStatus.ERROR
             }
         })
     }
