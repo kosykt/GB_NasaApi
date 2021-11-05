@@ -1,5 +1,7 @@
 package ru.kostry.nasaapi.ui.podfragment.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,8 +42,13 @@ class PictureOfDayFragment : Fragment() {
         }
         bottomSheetBehavior =
             BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_container)!!)
-
         bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, null)
+
+        binding.inputLayout.setEndIconOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+            })
+        }
     }
 
     override fun onDestroyView() {
