@@ -1,6 +1,5 @@
 package ru.kostry.nasaapi.ui.podfragment.view
 
-import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -21,18 +20,15 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 }
 
 @BindingAdapter("ApiStatus")
-fun bindStatus(imgView: ImageView, status: PODApiStatus?){
+fun bindStatus(imgView: ImageView, status: PODApiStatus?) {
     when (status) {
         PODApiStatus.LOADING -> {
-            imgView.visibility = View.VISIBLE
             imgView.setImageResource(R.drawable.loading_animation)
         }
         PODApiStatus.ERROR -> {
-            imgView.visibility = View.VISIBLE
             imgView.setImageResource(R.drawable.ic_broken_image)
         }
         PODApiStatus.DONE -> {
-            imgView.visibility = View.GONE
         }
     }
 }
