@@ -27,10 +27,14 @@ class PictureOfTheDayViewModel : ViewModel() {
     private val _explanation = MutableLiveData<String>()
     var explanation = _explanation
 
+    private val _date = MutableLiveData<String>()
+    var date = _date
+
     private fun saveResponseStrings(success: PODServerResponseData?) {
         _uri.value = success?.url!!
         _title.value = success.title.toString()
         _explanation.value = success.explanation.toString()
+        _date.value = success.date.toString()
     }
 
     init {
