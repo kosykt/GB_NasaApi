@@ -11,5 +11,6 @@
     <string name="settings">settings</string>
     <string name="search">Search</string>
     <string name="explanation">Explanation</string>
+    <string name="empty_response">Empty response</string>
 
 </resources>

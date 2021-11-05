@@ -19,7 +19,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 
-@BindingAdapter("ApiStatus")
+@BindingAdapter("apiStatusImage")
 fun bindStatus(imgView: ImageView, status: PODApiStatus?) {
     when (status) {
         PODApiStatus.LOADING -> {

@@ -39,7 +39,7 @@
                     app:endIconCheckable="true"
                     app:endIconDrawable="@drawable/ic_wikipedia"
                     app:endIconMode="custom"
-                    app:layout_constraintBottom_toTopOf="@id/title_textView"
+                    app:layout_constraintBottom_toTopOf="@id/error_textView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -54,6 +54,18 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    android:id="@+id/error_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.errorMessage}"
+                    app:layout_constraintBottom_toTopOf="@id/title_textView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/input_layout"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:text="Example text" />
+
+                <TextView
                     android:id="@+id/title_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,7 +73,7 @@
                     app:layout_constraintBottom_toTopOf="@id/image_view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/input_layout"
+                    app:layout_constraintTop_toBottomOf="@id/error_textView"
                     app:layout_constraintVertical_chainStyle="packed"
                     tools:text="Example text" />
 
@@ -71,8 +83,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:contentDescription="@string/photo_of_the_day_stub"
+                    app:apiStatusImage="@{viewModel.status}"
                     app:imageUrl="@{viewModel.uri}"
-                    app:ApiStatus="@{viewModel.status}"
                     app:layout_constraintBottom_toTopOf="@id/date_textView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -43,7 +43,7 @@ class PictureOfDayFragment : Fragment() {
 
         bottomSheetBehavior =
             BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_container)!!)
-        bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, null)
+        bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, "")
 
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -64,11 +64,11 @@ class PictureOfDayFragment : Fragment() {
                 podViewModel.explanation.value.toString()
             )
         } else {
-            bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, null)
+            bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, "")
         }
     }
 
-    private fun bottomSheetOptions(state: Int, explanation: String?) {
+    private fun bottomSheetOptions(state: Int, explanation: String) {
         bottomSheetBehavior.state = state
         binding.bottomSheetContainer.bottomSheetDescription.text = explanation
     }

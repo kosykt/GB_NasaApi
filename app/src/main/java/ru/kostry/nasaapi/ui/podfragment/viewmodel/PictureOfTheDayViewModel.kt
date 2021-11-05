@@ -1,5 +1,6 @@
 package ru.kostry.nasaapi.ui.podfragment.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.kostry.nasaapi.BuildConfig
+import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.ui.podfragment.model.data.PODServerResponseData
 import ru.kostry.nasaapi.ui.podfragment.model.repository.PODRetrofitImpl
 
@@ -18,6 +20,9 @@ class PictureOfTheDayViewModel : ViewModel() {
 
     private val _status = MutableLiveData<PODApiStatus>()
     val status: LiveData<PODApiStatus> = _status
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
 
     private val _uri = MutableLiveData<String>()
     val uri = _uri
@@ -63,14 +68,17 @@ class PictureOfTheDayViewModel : ViewModel() {
                     _status.value = PODApiStatus.ERROR
                     if (message.isNullOrEmpty()) {
                         _status.value = PODApiStatus.ERROR
+                        _errorMessage.value = R.string.empty_response.toString()
                     } else {
                         _status.value = PODApiStatus.ERROR
+                        _errorMessage.value = message
                     }
                 }
             }
 
             override fun onFailure(call: Call<PODServerResponseData>, t: Throwable) {
                 _status.value = PODApiStatus.ERROR
+                _errorMessage.value = t.message
             }
         })
     }
