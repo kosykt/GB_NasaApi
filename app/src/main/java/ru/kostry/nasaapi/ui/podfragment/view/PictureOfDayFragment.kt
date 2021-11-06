@@ -3,15 +3,15 @@ package ru.kostry.nasaapi.ui.podfragment.view
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
+import ru.kostry.nasaapi.ui.MainActivity
 import ru.kostry.nasaapi.ui.podfragment.viewmodel.PictureOfTheDayViewModel
 
 class PictureOfDayFragment : Fragment() {
@@ -51,11 +51,33 @@ class PictureOfDayFragment : Fragment() {
                     Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
+
+        setBottomAppBar(view)
+    }
+
+    private fun setBottomAppBar(view: View) {
+        val context = activity as MainActivity
+        context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
+        setHasOptionsMenu(true)
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom_bar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.app_bar_fav -> Toast.makeText(context, "favorite", Toast.LENGTH_SHORT).show()
+            R.id.app_bar_settings -> Toast.makeText(context, "settings", Toast.LENGTH_SHORT).show()
+            android.R.id.home -> Toast.makeText(context, "home", Toast.LENGTH_SHORT).show()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun touchFAB() {
