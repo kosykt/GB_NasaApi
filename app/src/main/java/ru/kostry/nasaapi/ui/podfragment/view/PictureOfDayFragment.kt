@@ -4,15 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
-import ru.kostry.nasaapi.ui.MainActivity
+import ru.kostry.nasaapi.ui.podfragment.viewmodel.PODApiStatus
 import ru.kostry.nasaapi.ui.podfragment.viewmodel.PictureOfTheDayViewModel
 
 class PictureOfDayFragment : Fragment() {
@@ -40,11 +39,9 @@ class PictureOfDayFragment : Fragment() {
             viewModel = podViewModel
             pcdFragment = this@PictureOfDayFragment
         }
-        podViewModel.setStatus()
 
         bottomSheetBehavior =
             BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_container)!!)
-        bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, "")
 
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -52,52 +49,21 @@ class PictureOfDayFragment : Fragment() {
                     Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
+        val observer = Observer<PODApiStatus>{renderExplanation(it)}
+        podViewModel.status.observe(viewLifecycleOwner, observer)
+    }
 
-        setBottomAppBar(view)
+    private fun renderExplanation(apiStatus: PODApiStatus) {
+        when(apiStatus){
+            PODApiStatus.DONE -> binding.bottomSheetContainer.bottomSheetDescription.text = podViewModel.explanation.value
+            PODApiStatus.LOADING -> binding.bottomSheetContainer.bottomSheetDescription.text = PODApiStatus.LOADING.toString()
+            PODApiStatus.ERROR -> binding.bottomSheetContainer.bottomSheetDescription.text = PODApiStatus.ERROR.toString()
+        }
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.app_bar_fav -> Toast.makeText(context, "favorite", Toast.LENGTH_SHORT).show()
-            R.id.app_bar_settings -> toChipsFragment()
-            android.R.id.home -> Toast.makeText(context, "home", Toast.LENGTH_SHORT).show()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun toChipsFragment() {
-        findNavController().navigate(R.id.action_pictureOfDayFragment_to_chipsFragment)
-    }
-
-    private fun bottomSheetOptions(state: Int, explanation: String) {
-        bottomSheetBehavior.state = state
-        binding.bottomSheetContainer.bottomSheetDescription.text = explanation
-    }
-
-    private fun setBottomAppBar(view: View) {
-        val context = activity as MainActivity
-        context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
-        setHasOptionsMenu(true)
-    }
-
-    fun touchFAB() {
-        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
-            bottomSheetOptions(
-                BottomSheetBehavior.STATE_HALF_EXPANDED,
-                podViewModel.explanation.value.toString()
-            )
-        } else {
-            bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, "")
-        }
-    }
 }
+

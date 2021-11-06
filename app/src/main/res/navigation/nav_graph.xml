@@ -9,9 +9,6 @@
         android:name="ru.kostry.nasaapi.ui.podfragment.view.PictureOfDayFragment"
         android:label="fragment_picture_of_day"
         tools:layout="@layout/fragment_picture_of_day" >
-        <action
-            android:id="@+id/action_pictureOfDayFragment_to_chipsFragment"
-            app:destination="@id/chipsFragment" />
     </fragment>
     <fragment
         android:id="@+id/chipsFragment"

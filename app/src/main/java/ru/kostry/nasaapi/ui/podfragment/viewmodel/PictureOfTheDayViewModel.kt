@@ -47,10 +47,6 @@ class PictureOfTheDayViewModel : ViewModel() {
         sendServerRequest()
     }
 
-    fun setStatus(){
-        _status.value = PODApiStatus.LOADING
-    }
-
     private fun sendServerRequest() {
         _status.value = PODApiStatus.LOADING
         val apiKey: String = BuildConfig.NASA_API_KEY
