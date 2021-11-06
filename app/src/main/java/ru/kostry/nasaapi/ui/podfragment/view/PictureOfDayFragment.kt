@@ -55,12 +55,6 @@ class PictureOfDayFragment : Fragment() {
         setBottomAppBar(view)
     }
 
-    private fun setBottomAppBar(view: View) {
-        val context = activity as MainActivity
-        context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
-        setHasOptionsMenu(true)
-    }
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
@@ -80,6 +74,17 @@ class PictureOfDayFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun bottomSheetOptions(state: Int, explanation: String) {
+        bottomSheetBehavior.state = state
+        binding.bottomSheetContainer.bottomSheetDescription.text = explanation
+    }
+
+    private fun setBottomAppBar(view: View) {
+        val context = activity as MainActivity
+        context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
+        setHasOptionsMenu(true)
+    }
+
     fun touchFAB() {
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
             bottomSheetOptions(
@@ -89,10 +94,5 @@ class PictureOfDayFragment : Fragment() {
         } else {
             bottomSheetOptions(BottomSheetBehavior.STATE_COLLAPSED, "")
         }
-    }
-
-    private fun bottomSheetOptions(state: Int, explanation: String) {
-        bottomSheetBehavior.state = state
-        binding.bottomSheetContainer.bottomSheetDescription.text = explanation
     }
 }
