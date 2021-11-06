@@ -28,7 +28,5 @@ fun bindStatus(imgView: ImageView, status: PODApiStatus?) {
         PODApiStatus.ERROR -> {
             imgView.setImageResource(R.drawable.ic_broken_image)
         }
-        PODApiStatus.DONE -> {
-        }
     }
 }
