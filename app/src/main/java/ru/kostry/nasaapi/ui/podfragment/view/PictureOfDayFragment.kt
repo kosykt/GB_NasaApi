@@ -56,16 +56,21 @@ class PictureOfDayFragment : Fragment() {
     private fun renderExplanation(apiStatus: PODApiStatus) {
         when(apiStatus){
             PODApiStatus.DONE -> {
-                binding.bottomSheetContainer.bottomSheetDescription.text = podViewModel.explanation.value
-                binding.titleTextView.text = podViewModel.title.value
+                bindResponseText(podViewModel.explanation.value, podViewModel.title.value)
             }
             PODApiStatus.LOADING -> {
-                binding.bottomSheetContainer.bottomSheetDescription.text = PODApiStatus.LOADING.toString()
-                binding.titleTextView.text = PODApiStatus.LOADING.toString()
+                bindResponseText(PODApiStatus.LOADING.toString(), PODApiStatus.LOADING.toString())
             }
             PODApiStatus.ERROR -> {
-                binding.titleTextView.text = PODApiStatus.ERROR.toString()
+                bindResponseText(PODApiStatus.ERROR.toString(), PODApiStatus.ERROR.toString())
             }
+        }
+    }
+
+    private fun bindResponseText(description: String?, title: String?) {
+        binding.apply {
+            bottomSheetContainer.bottomSheetDescription.text = description
+            titleTextView.text = title
         }
     }
 
