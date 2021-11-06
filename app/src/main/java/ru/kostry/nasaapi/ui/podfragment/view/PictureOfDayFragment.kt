@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
@@ -68,10 +69,14 @@ class PictureOfDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_fav -> Toast.makeText(context, "favorite", Toast.LENGTH_SHORT).show()
-            R.id.app_bar_settings -> Toast.makeText(context, "settings", Toast.LENGTH_SHORT).show()
+            R.id.app_bar_settings -> toChipsFragment()
             android.R.id.home -> Toast.makeText(context, "home", Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun toChipsFragment() {
+        findNavController().navigate(R.id.action_pictureOfDayFragment_to_chipsFragment)
     }
 
     private fun bottomSheetOptions(state: Int, explanation: String) {
