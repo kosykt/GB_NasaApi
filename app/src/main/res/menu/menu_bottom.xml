@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/app_bar_load_hd"
+        android:icon="@drawable/ic_image_hd"
+        android:title="@string/load_hd"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1"/>
+
+    <item
+        android:id="@+id/app_bar_explanation"
+        android:icon="@drawable/ic_explanation"
+        android:title="@string/explanation"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="2"/>
+
+    <item
+        android:id="@+id/app_bar_settings"
+        android:icon="@drawable/ic_settings_menu"
+        android:title="@string/settings"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="3"/>
+
+</menu>

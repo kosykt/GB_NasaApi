@@ -4,13 +4,16 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
+import ru.kostry.nasaapi.ui.MainActivity
 import ru.kostry.nasaapi.ui.podfragment.viewmodel.PODApiStatus
 import ru.kostry.nasaapi.ui.podfragment.viewmodel.PictureOfTheDayViewModel
 
@@ -49,12 +52,38 @@ class PictureOfDayFragment : Fragment() {
                     Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
             })
         }
-        val observer = Observer<PODApiStatus>{renderExplanation(it)}
+        val observer = Observer<PODApiStatus> { renderExplanation(it) }
         podViewModel.status.observe(viewLifecycleOwner, observer)
+
+        setBottomAppBar(view)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_bottom, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.app_bar_load_hd -> Toast.makeText(context, "load hd", Toast.LENGTH_SHORT).show()
+            R.id.app_bar_explanation -> Toast.makeText(context, "explanation", Toast.LENGTH_SHORT).show()
+            R.id.app_bar_settings -> Toast.makeText(context, "settings", Toast.LENGTH_SHORT).show()
+            R.id.fab -> Toast.makeText(context, "fab", Toast.LENGTH_SHORT).show()
+            android.R.id.home -> Toast.makeText(context, "home", Toast.LENGTH_SHORT).show()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setBottomAppBar(view: View) {
+        val context = activity as MainActivity
+        context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
+        setHasOptionsMenu(true)
+        binding.bottomAppBar.overflowIcon =
+            ContextCompat.getDrawable(context, R.drawable.ic_settings_menu)
     }
 
     private fun renderExplanation(apiStatus: PODApiStatus) {
-        when(apiStatus){
+        when (apiStatus) {
             PODApiStatus.DONE -> {
                 bindResponseText(podViewModel.explanation.value, podViewModel.title.value)
             }
