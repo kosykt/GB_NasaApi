@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -19,7 +18,6 @@ import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
 import ru.kostry.nasaapi.ui.MainActivity
 import ru.kostry.nasaapi.ui.podfragment.viewmodel.PODApiStatus
 import ru.kostry.nasaapi.ui.podfragment.viewmodel.PictureOfTheDayViewModel
-import ru.kostry.nasaapi.util.EquilateralImageView
 
 class PictureOfDayFragment : Fragment() {
 
@@ -30,6 +28,8 @@ class PictureOfDayFragment : Fragment() {
 
     private lateinit var bottomSheetResponseText: BottomSheetBehavior<ConstraintLayout>
     private lateinit var bottomSheetSettings: BottomSheetBehavior<ConstraintLayout>
+
+    private var isLoadedHD = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,7 +74,12 @@ class PictureOfDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_load_hd -> {
-                loadImageHD(podViewModel.uriHD.value, binding.imageView)
+                if (isLoadedHD) {
+                    loadImageHD(podViewModel.uri.value, false)
+                }else{
+                    loadImageHD(podViewModel.uriHD.value, true)
+
+                }
             }
             R.id.app_bar_explanation -> {
                 bottomSheetState(bottomSheetResponseText)
@@ -88,15 +93,16 @@ class PictureOfDayFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun loadImageHD(imgUrl: String?, imgView: ImageView) {
+    private fun loadImageHD(imgUrl: String?, isBoolean: Boolean) {
         imgUrl?.let {
             val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
-            imgView.load(imgUri)
-            imgView.load(imgUri) {
+            binding.imageView.load(imgUri)
+            binding.imageView.load(imgUri) {
                 placeholder(R.drawable.loading_animation)
                 error(R.drawable.ic_broken_image)
             }
         }
+        isLoadedHD = isBoolean
     }
 
     private fun bottomSheetState(
