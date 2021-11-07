@@ -19,6 +19,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/bottom_navigation_layout.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/bottom_sheet_layout.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/bottom_sheet_response_text_layout.xml" value="0.17592592592592593" />
+        <entry key="app/src/main/res/layout/bottom_sheet_settings_layout.xml" value="0.17592592592592593" />
         <entry key="app/src/main/res/layout/fragment_chips.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_picture_of_day.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_pod_bottom_navigation_drawer.xml" value="0.19791666666666666" />

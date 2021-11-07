@@ -29,7 +29,7 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout"
+                    android:id="@+id/pod_search_input_layout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -39,14 +39,14 @@
                     app:endIconCheckable="true"
                     app:endIconDrawable="@drawable/ic_wikipedia"
                     app:endIconMode="custom"
-                    app:layout_constraintBottom_toTopOf="@id/title_textView"
+                    app:layout_constraintBottom_toTopOf="@id/pod_title_text_view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_edit_text"
+                        android:id="@+id/pod_search_input_edit_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
@@ -54,13 +54,14 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/title_textView"
+                    android:id="@+id/pod_title_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.title}"
                     app:layout_constraintBottom_toTopOf="@id/image_view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/input_layout"
+                    app:layout_constraintTop_toBottomOf="@id/pod_search_input_layout"
                     app:layout_constraintVertical_chainStyle="packed"
                     tools:text="Example text" />
 
@@ -72,15 +73,15 @@
                     android:contentDescription="@string/photo_of_the_day_stub"
                     app:apiStatusImage="@{viewModel.status}"
                     app:imageUrl="@{viewModel.uri}"
-                    app:layout_constraintBottom_toTopOf="@id/date_textView"
+                    app:layout_constraintBottom_toTopOf="@id/pod_date_textView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/title_textView"
+                    app:layout_constraintTop_toBottomOf="@id/pod_title_text_view"
                     app:layout_constraintVertical_chainStyle="packed"
                     app:srcCompat="@drawable/ic_no_photo_vector" />
 
                 <TextView
-                    android:id="@+id/date_textView"
+                    android:id="@+id/pod_date_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.date}"
@@ -94,8 +95,8 @@
         </androidx.core.widget.NestedScrollView>
 
         <include
-            android:id="@+id/bottom_sheet_container"
-            layout="@layout/bottom_sheet_layout" />
+            android:id="@+id/bottom_sheet_response_text"
+            layout="@layout/bottom_sheet_response_text_layout" />
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_app_bar"

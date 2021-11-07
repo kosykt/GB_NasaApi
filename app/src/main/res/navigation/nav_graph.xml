@@ -10,9 +10,4 @@
         android:label="fragment_picture_of_day"
         tools:layout="@layout/fragment_picture_of_day" >
     </fragment>
-    <fragment
-        android:id="@+id/chipsFragment"
-        android:name="ru.kostry.nasaapi.ui.chipsfragment.ChipsFragment"
-        android:label="ChipsFragment"
-        tools:layout="@layout/fragment_chips"/>
 </navigation>

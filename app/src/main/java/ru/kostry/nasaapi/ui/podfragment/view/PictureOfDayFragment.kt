@@ -44,12 +44,12 @@ class PictureOfDayFragment : Fragment() {
         }
 
         bottomSheetBehavior =
-            BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_container)!!)
+            BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_response_text)!!)
 
-        binding.inputLayout.setEndIconOnClickListener {
+        binding.podSearchInputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data =
-                    Uri.parse("https://en.wikipedia.org/wiki/${binding.inputEditText.text.toString()}")
+                    Uri.parse("https://en.wikipedia.org/wiki/${binding.podSearchInputEditText.text.toString()}")
             })
         }
         val observer = Observer<PODApiStatus> { renderExplanation(it) }
@@ -66,12 +66,20 @@ class PictureOfDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_load_hd -> Toast.makeText(context, "load hd", Toast.LENGTH_SHORT).show()
-            R.id.app_bar_explanation -> Toast.makeText(context, "explanation", Toast.LENGTH_SHORT).show()
+            R.id.app_bar_explanation -> { bottomSheetState() }
             R.id.app_bar_settings -> Toast.makeText(context, "settings", Toast.LENGTH_SHORT).show()
             R.id.fab -> Toast.makeText(context, "fab", Toast.LENGTH_SHORT).show()
             android.R.id.home -> Toast.makeText(context, "home", Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun bottomSheetState() {
+        if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED){
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }else{
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        }
     }
 
     private fun setBottomAppBar(view: View) {
@@ -96,10 +104,10 @@ class PictureOfDayFragment : Fragment() {
         }
     }
 
-    private fun bindResponseText(description: String?, title: String?) {
+    private fun bindResponseText(explanation: String?, title: String?) {
         binding.apply {
-            bottomSheetContainer.bottomSheetDescription.text = description
-            titleTextView.text = title
+            bottomSheetResponseText.bottomSheetResponseTextExplanation.text = explanation
+            podTitleTextView.text = title
         }
     }
 
