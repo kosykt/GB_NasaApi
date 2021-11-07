@@ -24,7 +24,8 @@ class PictureOfDayFragment : Fragment() {
 
     private val podViewModel: PictureOfTheDayViewModel by activityViewModels()
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var bottomSheetResponseText: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var bottomSheetSettings: BottomSheetBehavior<ConstraintLayout>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +44,11 @@ class PictureOfDayFragment : Fragment() {
             pcdFragment = this@PictureOfDayFragment
         }
 
-        bottomSheetBehavior =
-            BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_response_text)!!)
+        bottomSheetResponseText =
+            BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_response_text_include)!!)
+
+        bottomSheetSettings =
+            BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_settings_include)!!)
 
         binding.podSearchInputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -66,19 +70,25 @@ class PictureOfDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_load_hd -> Toast.makeText(context, "load hd", Toast.LENGTH_SHORT).show()
-            R.id.app_bar_explanation -> { bottomSheetState() }
-            R.id.app_bar_settings -> Toast.makeText(context, "settings", Toast.LENGTH_SHORT).show()
+            R.id.app_bar_explanation -> {
+                bottomSheetState(bottomSheetResponseText)
+            }
+            R.id.app_bar_settings -> {
+                bottomSheetState(bottomSheetSettings)
+            }
             R.id.fab -> Toast.makeText(context, "fab", Toast.LENGTH_SHORT).show()
             android.R.id.home -> Toast.makeText(context, "home", Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun bottomSheetState() {
-        if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED){
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        }else{
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+    private fun bottomSheetState(
+        bottomSheet: BottomSheetBehavior<ConstraintLayout>,
+    ) {
+        if (bottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            bottomSheet.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        } else {
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
         }
     }
 
@@ -106,7 +116,7 @@ class PictureOfDayFragment : Fragment() {
 
     private fun bindResponseText(explanation: String?, title: String?) {
         binding.apply {
-            bottomSheetResponseText.bottomSheetResponseTextExplanation.text = explanation
+            bottomSheetResponseTextInclude.bottomSheetResponseTextExplanation.text = explanation
             podTitleTextView.text = title
         }
     }
