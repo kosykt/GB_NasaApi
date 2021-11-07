@@ -27,6 +27,9 @@ class PictureOfTheDayViewModel : ViewModel() {
     private val _uri = MutableLiveData<String>()
     val uri = _uri
 
+    private val _uriHD = MutableLiveData<String>()
+    val uriHD = _uriHD
+
     private val _title = MutableLiveData<String>()
     val title = _title
 
@@ -38,6 +41,7 @@ class PictureOfTheDayViewModel : ViewModel() {
 
     private fun saveResponseStrings(success: PODServerResponseData?) {
         _uri.value = success?.url!!
+        _uriHD.value = success.hdurl!!
         _title.value = success.title.toString()
         _explanation.value = success.explanation.toString()
         _date.value = success.date.toString()
