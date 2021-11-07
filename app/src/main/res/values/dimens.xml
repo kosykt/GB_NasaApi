@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_pod_fragment_constraint_layout">8dp</dimen>
+    <dimen name="padding_pod_search_input_layout">8dp</dimen>
+    <dimen name="padding_pod_title_text_view">8dp</dimen>
+    <dimen name="padding_pod_date_text_view">8dp</dimen>
+    <dimen name="text_size_pod_title_text_view">16sp</dimen>
+    <dimen name="text_size_pod_date_text_view">16sp</dimen>
+    <dimen name="padding_pod_image_view">8dp</dimen>
+    <dimen name="padding_bottom_sheet_line">8dp</dimen>
+    <dimen name="wight_bottom_sheet_line">25dp</dimen>
+    <dimen name="height_bottom_sheet_line">1dp</dimen>
+    <dimen name="margin_top_bottom_sheet_line">5dp</dimen>
+</resources>

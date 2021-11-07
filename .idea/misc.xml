@@ -7,9 +7,11 @@
         <entry key="app/src/main/res/drawable-v24/ic_broken_image.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable-v24/loading_img.xml" value="0.2140625" />
+        <entry key="app/src/main/res/drawable/ic_archive.xml" value="0.19027777777777777" />
         <entry key="app/src/main/res/drawable/ic_baseline_text_snippet_24.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/ic_explanation.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/ic_favourite_menu.xml" value="0.2140625" />
+        <entry key="app/src/main/res/drawable/ic_hamburger_menu_bottom_bar.xml" value="0.19027777777777777" />
         <entry key="app/src/main/res/drawable/ic_image_hd.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/ic_load_error_vector.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/ic_no_photo_vector.xml" value="0.2140625" />

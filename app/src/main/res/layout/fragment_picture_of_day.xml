@@ -16,6 +16,7 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        style="@style/StyleColorsOuterPODFragmentConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -25,6 +26,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/main"
+                style="@style/StyleSizesInnerPODFragmentConstraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -34,6 +36,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/search_wiki"
+                    android:padding="@dimen/padding_pod_search_input_layout"
                     app:counterEnabled="true"
                     app:counterMaxLength="30"
                     app:endIconCheckable="true"
@@ -55,10 +58,11 @@
 
                 <TextView
                     android:id="@+id/pod_title_text_view"
+                    style="@style/StyleSizesPodTitleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.title}"
-                    app:layout_constraintBottom_toTopOf="@id/image_view"
+                    app:layout_constraintBottom_toTopOf="@id/pod_image_view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/pod_search_input_layout"
@@ -66,7 +70,8 @@
                     tools:text="Example text" />
 
                 <ru.kostry.nasaapi.util.EquilateralImageView
-                    android:id="@+id/image_view"
+                    android:id="@+id/pod_image_view"
+                    style="@style/StyleSizesPodImageView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -82,13 +87,14 @@
 
                 <TextView
                     android:id="@+id/pod_date_textView"
+                    style="@style/StyleSizesPodDateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.date}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image_view"
+                    app:layout_constraintTop_toBottomOf="@id/pod_image_view"
                     tools:text="Example date" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -104,10 +110,10 @@
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_app_bar"
+            style="@style/StyleColorsPodAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:backgroundTint="@color/colorPrimary"
             app:fabAlignmentMode="center"
             app:hideOnScroll="true"
             app:layout_scrollFlags="scroll|enterAlways"
@@ -115,12 +121,12 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
+            style="@style/StyleColorsPodFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
             app:layout_anchor="@id/bottom_app_bar"
             app:srcCompat="@drawable/ic_favourite_menu"
-            app:tint="#FFFFFF" />
+            app:tint="@color/white"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

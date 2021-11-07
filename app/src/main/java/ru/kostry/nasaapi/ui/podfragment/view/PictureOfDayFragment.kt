@@ -87,7 +87,9 @@ class PictureOfDayFragment : Fragment() {
             R.id.app_bar_settings -> {
                 bottomSheetState(bottomSheetSettings)
             }
-            R.id.fab -> Toast.makeText(context, "fab", Toast.LENGTH_SHORT).show()
+            R.id.fab -> {
+                Toast.makeText(context, "fab", Toast.LENGTH_SHORT).show()
+            }
             android.R.id.home -> Toast.makeText(context, "home", Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
@@ -96,8 +98,8 @@ class PictureOfDayFragment : Fragment() {
     private fun loadImageHD(imgUrl: String?, isBoolean: Boolean) {
         imgUrl?.let {
             val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
-            binding.imageView.load(imgUri)
-            binding.imageView.load(imgUri) {
+            binding.podImageView.load(imgUri)
+            binding.podImageView.load(imgUri) {
                 placeholder(R.drawable.loading_animation)
                 error(R.drawable.ic_broken_image)
             }
