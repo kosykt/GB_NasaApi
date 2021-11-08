@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -15,6 +16,7 @@ import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
 import ru.kostry.nasaapi.ui.MainActivity
@@ -66,8 +68,6 @@ class PictureOfDayFragment : Fragment() {
         podViewModel.status.observe(viewLifecycleOwner, observer)
 
         setBottomAppBar(view)
-        val s = "S0Q4gqBUs7c"
-        showNasaVideo(s)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -99,11 +99,13 @@ class PictureOfDayFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showNasaVideo(videoId:String){
+    private fun showNasaVideo(videoId: String) {
+        val id = videoId.substring(30 until videoId.indexOf("?"))
         lifecycle.addObserver(binding.youtubePlayerView)
-        binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+        binding.youtubePlayerView.addYouTubePlayerListener(object :
+            AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                youTubePlayer.loadVideo(videoId, 0f)
+                youTubePlayer.loadVideo(id, 0f)
             }
         })
     }
@@ -149,6 +151,11 @@ class PictureOfDayFragment : Fragment() {
     private fun renderExplanation(apiStatus: PODApiStatus) {
         when (apiStatus) {
             PODApiStatus.DONE -> {
+                if (podViewModel.mediaType.value.toString() == "video") {
+                    binding.youtubePlayerView.visibility = View.VISIBLE
+                    binding.podImageView.visibility = ImageView.INVISIBLE
+                    showNasaVideo(podViewModel.uri.value.toString())
+                }
                 bindResponseText(podViewModel.explanation.value, podViewModel.title.value)
             }
             PODApiStatus.LOADING -> {
