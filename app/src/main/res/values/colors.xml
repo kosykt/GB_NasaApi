@@ -12,11 +12,11 @@
 
     <color name="primaryColor">#D9E5EC</color>
     <color name="primaryLightColor">#F4F4F4</color>
+    <color name="ChipsColor">#F4F4F4</color>
     <color name="primaryDarkColor">#CED9DF</color>
     <color name="secondaryColor">#607d8b</color>
     <color name="secondaryLightColor">#8eacbb</color>
     <color name="secondaryDarkColor">#34515e</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#f5f5f5</color>
-    <color name="qwe">#FF0000</color>
 </resources>

@@ -56,7 +56,7 @@
 
     <style name="StyleBottomSheetSettingsChip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:gravity">center</item>
-        <item name="android:backgroundTint">@color/primaryLightColor</item>
+        <item name="android:backgroundTint">@color/ChipsColor</item>
         <item name="android:textColor">@color/secondaryDarkColor</item>
         <item name="android:padding">@dimen/padding_bottom_sheet_settings_chip</item>
         <item name="android:textSize">@dimen/text_size_pod_date_text_view</item>
