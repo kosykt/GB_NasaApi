@@ -13,6 +13,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
 import ru.kostry.nasaapi.ui.MainActivity
@@ -64,6 +66,8 @@ class PictureOfDayFragment : Fragment() {
         podViewModel.status.observe(viewLifecycleOwner, observer)
 
         setBottomAppBar(view)
+        val s = "S0Q4gqBUs7c"
+        showNasaVideo(s)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -74,18 +78,11 @@ class PictureOfDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_load_hd -> {
-                if (podViewModel.mediaType.value == "video") {
-                    startActivity(Intent(Intent.ACTION_VIEW).apply {
-                        data =
-                            Uri.parse(podViewModel.uri.value)
-                    })
+                if (isLoadedHD) {
+                    loadImageHD(podViewModel.uri.value, false)
                 } else {
-                    if (isLoadedHD) {
-                        loadImageHD(podViewModel.uri.value, false)
-                    } else {
-                        loadImageHD(podViewModel.uriHD.value, true)
+                    loadImageHD(podViewModel.uriHD.value, true)
 
-                    }
                 }
             }
             R.id.app_bar_explanation -> {
@@ -100,6 +97,15 @@ class PictureOfDayFragment : Fragment() {
             android.R.id.home -> Toast.makeText(context, "home", Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showNasaVideo(videoId:String){
+        lifecycle.addObserver(binding.youtubePlayerView)
+        binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                youTubePlayer.loadVideo(videoId, 0f)
+            }
+        })
     }
 
     private fun bottomSheetOpener(
