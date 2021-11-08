@@ -8,11 +8,11 @@
         <item name="android:background">@color/primaryDarkColor</item>
     </style>
 
-    <style name="StyleSizesPodTitleTextView">
+    <style name="StylePodTitleTextView">
         <item name="android:gravity">center</item>
         <item name="android:padding">@dimen/padding_pod_title_text_view</item>
         <item name="android:textSize">@dimen/text_size_pod_title_text_view</item>
-        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textColor">@color/secondaryDarkColor</item>
         <item name="android:textStyle">normal|bold</item>
     </style>
 
@@ -20,10 +20,45 @@
         <item name="android:padding">@dimen/padding_pod_image_view</item>
     </style>
 
-    <style name="StyleSizesPodDateTextView">
+    <style name="StylePodDateTextView">
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textColor">@color/secondaryDarkColor</item>
         <item name="android:padding">@dimen/padding_pod_date_text_view</item>
+        <item name="android:textSize">@dimen/text_size_pod_date_text_view</item>
+        <item name="android:textStyle">normal|bold</item>
+    </style>
+
+    <style name="StyleBottomSheetSettingsTitle">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/secondaryDarkColor</item>
+        <item name="android:padding">@dimen/padding_bottom_sheet_settings_title</item>
+        <item name="android:textSize">@dimen/text_size_pod_date_text_view</item>
+        <item name="android:textStyle">normal|bold</item>
+        <item name="android:text">@string/settings</item>
+    </style>
+
+    <style name="StyleBottomSheetResponseTextTitle">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/secondaryDarkColor</item>
+        <item name="android:padding">@dimen/padding_bottom_sheet_response_text_title</item>
+        <item name="android:textSize">@dimen/text_size_pod_date_text_view</item>
+        <item name="android:textStyle">normal|bold</item>
+        <item name="android:text">@string/explanation</item>
+    </style>
+
+    <style name="StyleBottomSheetResponseTextExplanation">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/secondaryDarkColor</item>
+        <item name="android:padding">@dimen/padding_bottom_sheet_response_text_explanation</item>
+        <item name="android:textSize">@dimen/text_size_bottom_sheet_response_text_explanation</item>
+        <item name="android:text">@string/explanation</item>
+    </style>
+
+    <style name="StyleBottomSheetSettingsChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:gravity">center</item>
+        <item name="android:backgroundTint">@color/primaryLightColor</item>
+        <item name="android:textColor">@color/secondaryDarkColor</item>
+        <item name="android:padding">@dimen/padding_bottom_sheet_settings_chip</item>
         <item name="android:textSize">@dimen/text_size_pod_date_text_view</item>
         <item name="android:textStyle">normal|bold</item>
     </style>
@@ -40,7 +75,7 @@
         <item name="android:background">@color/primaryColor</item>
     </style>
 
-    <style name="StyleSizeBottomSheetLine">
+    <style name="StyleSizeBottomSheetLine" >
         <item name="android:layout_width">@dimen/wight_bottom_sheet_line</item>
         <item name="android:layout_height">@dimen/height_bottom_sheet_line</item>
         <item name="android:layout_marginTop">@dimen/margin_top_bottom_sheet_line</item>

@@ -40,11 +40,11 @@ class PictureOfTheDayViewModel : ViewModel() {
     val date = _date
 
     private fun saveResponseStrings(success: PODServerResponseData?) {
-        _uri.value = success?.url!!
-        _uriHD.value = success.hdurl!!
-        _title.value = success.title.toString()
-        _explanation.value = success.explanation.toString()
-        _date.value = success.date.toString()
+        _uri.value = success?.url.orEmpty()
+        _uriHD.value = success?.hdurl.orEmpty()
+        _title.value = success?.title.toString()
+        _explanation.value = success?.explanation.toString()
+        _date.value = success?.date.toString()
     }
 
     init {

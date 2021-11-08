@@ -14,7 +14,7 @@
         android:id="@+id/bottom_sheet_response_text_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f6f6fa"
+        android:background="@color/primaryColor"
         android:visibility="visible"
         app:behavior_hideable="false"
         app:behavior_peekHeight="1dp"
@@ -23,10 +23,7 @@
 
         <View
             android:id="@+id/bottom_sheet_response_text_line"
-            android:layout_width="25dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/black"
+            style="@style/StyleSizeBottomSheetLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +32,7 @@
             android:id="@+id/bottom_sheet_response_text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/explanation"
+            style="@style/StyleBottomSheetResponseTextTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_response_text_line"
@@ -43,6 +40,7 @@
 
         <TextView
             android:id="@+id/bottom_sheet_response_text_explanation"
+            style="@style/StyleBottomSheetResponseTextExplanation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

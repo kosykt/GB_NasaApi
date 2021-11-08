@@ -4,11 +4,17 @@
     <dimen name="padding_pod_search_input_layout">8dp</dimen>
     <dimen name="padding_pod_title_text_view">8dp</dimen>
     <dimen name="padding_pod_date_text_view">8dp</dimen>
+    <dimen name="padding_bottom_sheet_settings_chip">8dp</dimen>
+    <dimen name="padding_bottom_sheet_settings_title">8dp</dimen>
+    <dimen name="padding_bottom_sheet_response_text_title">8dp</dimen>
+    <dimen name="padding_bottom_sheet_response_text_explanation">8dp</dimen>
     <dimen name="text_size_pod_title_text_view">16sp</dimen>
     <dimen name="text_size_pod_date_text_view">16sp</dimen>
+    <dimen name="text_size_bottom_sheet_response_text_explanation">16sp</dimen>
     <dimen name="padding_pod_image_view">8dp</dimen>
     <dimen name="padding_bottom_sheet_line">8dp</dimen>
     <dimen name="wight_bottom_sheet_line">25dp</dimen>
     <dimen name="height_bottom_sheet_line">1dp</dimen>
     <dimen name="margin_top_bottom_sheet_line">5dp</dimen>
+    <dimen name="text_size_bottom_sheet_settings_title">16sp</dimen>
 </resources>
