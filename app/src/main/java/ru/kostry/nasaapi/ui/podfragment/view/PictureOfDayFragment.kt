@@ -79,20 +79,20 @@ class PictureOfDayFragment : Fragment() {
                         data =
                             Uri.parse(podViewModel.uri.value)
                     })
-                }else{
+                } else {
                     if (isLoadedHD) {
                         loadImageHD(podViewModel.uri.value, false)
-                    }else{
+                    } else {
                         loadImageHD(podViewModel.uriHD.value, true)
 
                     }
                 }
             }
             R.id.app_bar_explanation -> {
-                bottomSheetState(bottomSheetResponseText)
+                bottomSheetOpener(bottomSheetSettings, bottomSheetResponseText)
             }
             R.id.app_bar_settings -> {
-                bottomSheetState(bottomSheetSettings)
+                bottomSheetOpener(bottomSheetResponseText, bottomSheetSettings)
             }
             R.id.fab -> {
                 Toast.makeText(context, "fab", Toast.LENGTH_SHORT).show()
@@ -100,6 +100,14 @@ class PictureOfDayFragment : Fragment() {
             android.R.id.home -> Toast.makeText(context, "home", Toast.LENGTH_SHORT).show()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun bottomSheetOpener(
+        closedBottomSheet: BottomSheetBehavior<ConstraintLayout>,
+        openedBottomSheet: BottomSheetBehavior<ConstraintLayout>,
+    ) {
+        closedBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetState(openedBottomSheet)
     }
 
     private fun loadImageHD(imgUrl: String?, isBoolean: Boolean) {
