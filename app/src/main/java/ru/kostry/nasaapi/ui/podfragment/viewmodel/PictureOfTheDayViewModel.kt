@@ -24,6 +24,9 @@ class PictureOfTheDayViewModel : ViewModel() {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    private val _mediaType = MutableLiveData<String>()
+    val mediaType: LiveData<String> = _mediaType
+
     private val _uri = MutableLiveData<String>()
     val uri = _uri
 
@@ -45,6 +48,7 @@ class PictureOfTheDayViewModel : ViewModel() {
         _title.value = success?.title.toString()
         _explanation.value = success?.explanation.toString()
         _date.value = success?.date.toString()
+        _mediaType.value = success?.mediaType.toString()
     }
 
     init {

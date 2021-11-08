@@ -74,11 +74,18 @@ class PictureOfDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_load_hd -> {
-                if (isLoadedHD) {
-                    loadImageHD(podViewModel.uri.value, false)
+                if (podViewModel.mediaType.value == "video") {
+                    startActivity(Intent(Intent.ACTION_VIEW).apply {
+                        data =
+                            Uri.parse(podViewModel.uri.value)
+                    })
                 }else{
-                    loadImageHD(podViewModel.uriHD.value, true)
+                    if (isLoadedHD) {
+                        loadImageHD(podViewModel.uri.value, false)
+                    }else{
+                        loadImageHD(podViewModel.uriHD.value, true)
 
+                    }
                 }
             }
             R.id.app_bar_explanation -> {
