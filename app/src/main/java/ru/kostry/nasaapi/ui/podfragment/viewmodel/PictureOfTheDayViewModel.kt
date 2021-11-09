@@ -13,7 +13,6 @@ import ru.kostry.nasaapi.ui.podfragment.model.repository.PODRetrofitImpl
 import java.time.LocalDate
 
 enum class PODApiStatus { LOADING, ERROR, DONE }
-enum class PODMediaType { VIDEO, IMAGE }
 
 class PictureOfTheDayViewModel : ViewModel() {
 
@@ -21,9 +20,6 @@ class PictureOfTheDayViewModel : ViewModel() {
 
     private val _status = MutableLiveData<PODApiStatus>()
     val status: LiveData<PODApiStatus> = _status
-
-    private val _responseMediaType = MutableLiveData<PODMediaType>()
-    val responseMediaType: LiveData<PODMediaType> = _responseMediaType
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -53,19 +49,10 @@ class PictureOfTheDayViewModel : ViewModel() {
         _explanation.value = response?.explanation.toString()
         _date.value = response?.date.toString()
         _mediaType.value = response?.mediaType.toString()
-        setMediaType(_mediaType.value!!)
-    }
-
-    private fun setMediaType(value: String) {
-        if(value == "video"){
-            _responseMediaType.value = PODMediaType.VIDEO
-        }else{
-            _responseMediaType.value = PODMediaType.IMAGE
-        }
     }
 
     init {
-        sendServerRequest(LocalDate.now().minusDays(2).toString())
+        sendServerRequest(LocalDate.now().minusDays(1).toString())
     }
 
     private fun sendServerRequest(date: String) {

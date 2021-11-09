@@ -62,7 +62,7 @@ class PictureOfDayFragment : Fragment() {
                     Uri.parse("https://en.wikipedia.org/wiki/${binding.podSearchInputEditText.text.toString()}")
             })
         }
-        val observer = Observer<PODApiStatus> { renderResponseText(it) }
+        val observer = Observer<PODApiStatus> { renderData(it) }
         podViewModel.status.observe(viewLifecycleOwner, observer)
 
         setBottomAppBar(view)
@@ -143,9 +143,10 @@ class PictureOfDayFragment : Fragment() {
             ContextCompat.getDrawable(context, R.drawable.ic_settings_menu)
     }
 
-    private fun renderResponseText(apiStatus: PODApiStatus) {
+    private fun renderData(apiStatus: PODApiStatus) {
         when (apiStatus) {
             PODApiStatus.DONE -> {
+                checkMediaType()
                 bindResponseText(podViewModel.explanation.value, podViewModel.title.value)
             }
             PODApiStatus.LOADING -> {
@@ -154,6 +155,16 @@ class PictureOfDayFragment : Fragment() {
             PODApiStatus.ERROR -> {
                 bindResponseText(PODApiStatus.ERROR.toString(), PODApiStatus.ERROR.toString())
             }
+        }
+    }
+
+    private fun checkMediaType() {
+        if (podViewModel.mediaType.value == "video"){
+            binding.apply {
+                podImageView.visibility = View.INVISIBLE
+                youtubePlayerView.visibility = View.VISIBLE
+            }
+            podViewModel.uri.value?.let { showNasaVideo(it) }
         }
     }
 
