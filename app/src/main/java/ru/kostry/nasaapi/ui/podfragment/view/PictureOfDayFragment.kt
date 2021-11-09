@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -16,7 +15,6 @@ import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
 import ru.kostry.nasaapi.ui.MainActivity
@@ -64,7 +62,7 @@ class PictureOfDayFragment : Fragment() {
                     Uri.parse("https://en.wikipedia.org/wiki/${binding.podSearchInputEditText.text.toString()}")
             })
         }
-        val observer = Observer<PODApiStatus> { renderExplanation(it) }
+        val observer = Observer<PODApiStatus> { renderResponseText(it) }
         podViewModel.status.observe(viewLifecycleOwner, observer)
 
         setBottomAppBar(view)
@@ -90,9 +88,6 @@ class PictureOfDayFragment : Fragment() {
             }
             R.id.app_bar_settings -> {
                 bottomSheetOpener(bottomSheetResponseText, bottomSheetSettings)
-            }
-            R.id.fab -> {
-                Toast.makeText(context, "fab", Toast.LENGTH_SHORT).show()
             }
             android.R.id.home -> Toast.makeText(context, "home", Toast.LENGTH_SHORT).show()
         }
@@ -148,14 +143,9 @@ class PictureOfDayFragment : Fragment() {
             ContextCompat.getDrawable(context, R.drawable.ic_settings_menu)
     }
 
-    private fun renderExplanation(apiStatus: PODApiStatus) {
+    private fun renderResponseText(apiStatus: PODApiStatus) {
         when (apiStatus) {
             PODApiStatus.DONE -> {
-                if (podViewModel.mediaType.value.toString() == "video") {
-                    binding.youtubePlayerView.visibility = View.VISIBLE
-                    binding.podImageView.visibility = ImageView.INVISIBLE
-                    showNasaVideo(podViewModel.uri.value.toString())
-                }
                 bindResponseText(podViewModel.explanation.value, podViewModel.title.value)
             }
             PODApiStatus.LOADING -> {

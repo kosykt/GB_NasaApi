@@ -6,6 +6,10 @@ import retrofit2.http.Query
 import ru.kostry.nasaapi.ui.podfragment.model.data.PODServerResponseData
 
 interface PictureOfTheDayAPI {
+
     @GET("planetary/apod")
-    fun getPictureOfTheDay(@Query("api_key") apiKey: String): Call<PODServerResponseData>
+    fun getPictureOfTheDay(
+        @Query("date") date: String,
+        @Query("api_key") apiKey: String,
+    ): Call<PODServerResponseData>
 }

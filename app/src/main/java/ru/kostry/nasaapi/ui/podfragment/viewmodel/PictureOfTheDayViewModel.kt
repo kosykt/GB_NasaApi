@@ -1,6 +1,5 @@
 package ru.kostry.nasaapi.ui.podfragment.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,8 +10,10 @@ import ru.kostry.nasaapi.BuildConfig
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.ui.podfragment.model.data.PODServerResponseData
 import ru.kostry.nasaapi.ui.podfragment.model.repository.PODRetrofitImpl
+import java.time.LocalDate
 
 enum class PODApiStatus { LOADING, ERROR, DONE }
+enum class PODMediaType { VIDEO, IMAGE }
 
 class PictureOfTheDayViewModel : ViewModel() {
 
@@ -20,6 +21,9 @@ class PictureOfTheDayViewModel : ViewModel() {
 
     private val _status = MutableLiveData<PODApiStatus>()
     val status: LiveData<PODApiStatus> = _status
+
+    private val _responseMediaType = MutableLiveData<PODMediaType>()
+    val responseMediaType: LiveData<PODMediaType> = _responseMediaType
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -42,23 +46,32 @@ class PictureOfTheDayViewModel : ViewModel() {
     private val _date = MutableLiveData<String>()
     val date = _date
 
-    private fun saveResponseStrings(success: PODServerResponseData?) {
-        _uri.value = success?.url.orEmpty()
-        _uriHD.value = success?.hdurl.orEmpty()
-        _title.value = success?.title.toString()
-        _explanation.value = success?.explanation.toString()
-        _date.value = success?.date.toString()
-        _mediaType.value = success?.mediaType.toString()
+    private fun saveResponseStrings(response: PODServerResponseData?) {
+        _uri.value = response?.url.orEmpty()
+        _uriHD.value = response?.hdurl.orEmpty()
+        _title.value = response?.title.toString()
+        _explanation.value = response?.explanation.toString()
+        _date.value = response?.date.toString()
+        _mediaType.value = response?.mediaType.toString()
+        setMediaType(_mediaType.value!!)
+    }
+
+    private fun setMediaType(value: String) {
+        if(value == "video"){
+            _responseMediaType.value = PODMediaType.VIDEO
+        }else{
+            _responseMediaType.value = PODMediaType.IMAGE
+        }
     }
 
     init {
-        sendServerRequest()
+        sendServerRequest(LocalDate.now().minusDays(2).toString())
     }
 
-    private fun sendServerRequest() {
+    private fun sendServerRequest(date: String) {
         _status.value = PODApiStatus.LOADING
         val apiKey: String = BuildConfig.NASA_API_KEY
-        retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apiKey).enqueue(object :
+        retrofitImpl.getRetrofitImpl().getPictureOfTheDay(date, apiKey).enqueue(object :
             Callback<PODServerResponseData> {
             override fun onResponse(
                 call: Call<PODServerResponseData>,
