@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/pictureOfDayFragment">
+    app:startDestination="@id/testFragment">
     <fragment
         android:id="@+id/pictureOfDayFragment"
         android:name="ru.kostry.nasaapi.ui.podfragment.view.PictureOfDayFragment"
         android:label="fragment_picture_of_day"
         tools:layout="@layout/fragment_picture_of_day" >
     </fragment>
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="ru.kostry.nasaapi.ui.podfragment.view.TestFragment"
+        android:label="fragment_test"
+        tools:layout="@layout/fragment_test" />
 </navigation>

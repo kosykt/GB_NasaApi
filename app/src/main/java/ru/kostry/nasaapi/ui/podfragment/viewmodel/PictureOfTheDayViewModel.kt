@@ -52,7 +52,7 @@ class PictureOfTheDayViewModel : ViewModel() {
     }
 
     init {
-        sendServerRequest(LocalDate.now().minusDays(1).toString())
+        sendServerRequest(LocalDate.now().toString())
     }
 
     private fun sendServerRequest(date: String) {

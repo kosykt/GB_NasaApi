@@ -10,5 +10,7 @@
     <string name="empty_response">Empty response</string>
     <string name="load_hd">Load HD</string>
     <integer name="search_wiki_max_counter">30</integer>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
