@@ -47,8 +47,9 @@
                     app:endIconMode="custom"
                     app:endIconTint="@color/secondaryDarkColor"
                     app:hintTextColor="@color/secondaryDarkColor"
-                    app:layout_constraintBottom_toTopOf="@id/pod_title_text_view"
+                    app:layout_constraintBottom_toTopOf="@+id/pod_title_text_view"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed">
@@ -61,44 +62,28 @@
                         android:maxLength="@integer/search_wiki_max_counter" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+
                 <TextView
                     android:id="@+id/pod_title_text_view"
                     style="@style/StylePodTitleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.title}"
-                    app:layout_constraintBottom_toTopOf="@id/pod_image_view"
+                    app:layout_constraintBottom_toTopOf="@id/view_pager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/pod_search_input_layout"
                     app:layout_constraintVertical_chainStyle="packed"
                     tools:text="Example text" />
 
-                <ru.kostry.nasaapi.util.EquilateralImageView
-                    android:id="@+id/pod_image_view"
-                    style="@style/StyleSizesPodImageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/photo_of_the_day_stub"
-                    app:apiStatusImage="@{viewModel.status}"
-                    app:imageUrl="@{viewModel.uri}"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/view_pager"
+                    android:layout_width="391dp"
+                    android:layout_height="186dp"
                     app:layout_constraintBottom_toTopOf="@id/pod_date_textView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pod_title_text_view"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    app:srcCompat="@drawable/ic_no_photo_vector" />
-
-                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                    android:id="@+id/youtube_player_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    app:showFullScreenButton="false"
-                    android:visibility="invisible"
-                    app:layout_constraintTop_toTopOf="@id/pod_image_view"
-                    app:layout_constraintBottom_toBottomOf="@id/pod_image_view"/>
+                    app:layout_constraintTop_toBottomOf="@id/pod_title_text_view" />
 
                 <TextView
                     android:id="@+id/pod_date_textView"
@@ -109,7 +94,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pod_image_view"
+                    app:layout_constraintTop_toBottomOf="@id/view_pager"
                     tools:text="Example date" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
