@@ -7,14 +7,10 @@ import android.view.*
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import ru.kostry.nasaapi.R
 import ru.kostry.nasaapi.databinding.FragmentPictureOfDayBinding
 import ru.kostry.nasaapi.ui.MainActivity
@@ -57,7 +53,8 @@ class PictureOfDayFragment : Fragment() {
         val fragmentList =
             arrayListOf<Fragment>(FirstScreenPodFragment(), SecondScreenPodFragment())
 
-        val adapter = ViewPagerAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
+        val adapter =
+            ViewPagerAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
         binding.viewPager.adapter = adapter
 
         binding.podSearchInputLayout.setEndIconOnClickListener {
@@ -81,12 +78,7 @@ class PictureOfDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_load_hd -> {
-//                if (isLoadedHD) {
-//                    loadImageHD(podViewModel.uri.value, false)
-//                } else {
-//                    loadImageHD(podViewModel.uriHD.value, true)
-//
-//                }
+
             }
             R.id.app_bar_explanation -> {
                 bottomSheetOpener(bottomSheetSettings, bottomSheetResponseText)
@@ -118,51 +110,17 @@ class PictureOfDayFragment : Fragment() {
 
     private fun renderData(apiStatus: PODApiStatus) {
         when (apiStatus) {
-//            PODApiStatus.DONE -> {
-//                checkMediaType()
-//                bindResponseText(podViewModel.explanation.value, podViewModel.title.value)
-//            }
+            PODApiStatus.DONE -> {
+                bindResponseText(podViewModel.explanation.value)
+            }
             PODApiStatus.LOADING -> {
-                bindResponseText(PODApiStatus.LOADING.toString(), PODApiStatus.LOADING.toString())
+                bindResponseText(PODApiStatus.LOADING.toString())
             }
             PODApiStatus.ERROR -> {
-                bindResponseText(PODApiStatus.ERROR.toString(), PODApiStatus.ERROR.toString())
+                bindResponseText(PODApiStatus.ERROR.toString())
             }
         }
     }
-
-//    private fun checkMediaType() {
-//        if (podViewModel.mediaType.value == "video") {
-//            binding.apply {
-//                podImageView.visibility = View.INVISIBLE
-//                youtubePlayerView.visibility = View.VISIBLE
-//            }
-//            podViewModel.uri.value?.let { showNasaVideo(it) }
-//        }
-//    }
-//
-//    private fun showNasaVideo(videoId: String) {
-//        val id = videoId.substring(30 until 41)
-//        lifecycle.addObserver(binding.youtubePlayerView)
-//        binding.youtubePlayerView.addYouTubePlayerListener(object :
-//            AbstractYouTubePlayerListener() {
-//            override fun onReady(youTubePlayer: YouTubePlayer) {
-//                youTubePlayer.loadVideo(id, 0f)
-//            }
-//        })
-//    }
-//
-//    private fun loadImageHD(imgUrl: String?, isBoolean: Boolean) {
-//        imgUrl?.let {
-//            val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
-//            binding.podImageView.load(imgUri)
-//            binding.podImageView.load(imgUri) {
-//                placeholder(R.drawable.loading_animation)
-//                error(R.drawable.ic_broken_image)
-//            }
-//        }
-//        isLoadedHD = isBoolean
-//    }
 
     private fun bottomSheetState(
         bottomSheet: BottomSheetBehavior<ConstraintLayout>,
@@ -183,10 +141,9 @@ class PictureOfDayFragment : Fragment() {
     }
 
 
-    private fun bindResponseText(explanation: String?, title: String?) {
+    private fun bindResponseText(explanation: String?) {
         binding.apply {
             bottomSheetResponseTextInclude.bottomSheetResponseTextExplanation.text = explanation
-            podTitleTextView.text = title
         }
     }
 

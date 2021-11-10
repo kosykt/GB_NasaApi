@@ -47,7 +47,7 @@
                     app:endIconMode="custom"
                     app:endIconTint="@color/secondaryDarkColor"
                     app:hintTextColor="@color/secondaryDarkColor"
-                    app:layout_constraintBottom_toTopOf="@+id/pod_title_text_view"
+                    app:layout_constraintBottom_toTopOf="@+id/view_pager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -62,40 +62,14 @@
                         android:maxLength="@integer/search_wiki_max_counter" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-
-                <TextView
-                    android:id="@+id/pod_title_text_view"
-                    style="@style/StylePodTitleTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.title}"
-                    app:layout_constraintBottom_toTopOf="@id/view_pager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pod_search_input_layout"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    tools:text="Example text" />
-
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/view_pager"
-                    android:layout_width="391dp"
-                    android:layout_height="186dp"
-                    app:layout_constraintBottom_toTopOf="@id/pod_date_textView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pod_title_text_view" />
-
-                <TextView
-                    android:id="@+id/pod_date_textView"
-                    style="@style/StylePodDateTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.date}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_pager"
-                    tools:text="Example date" />
+                    app:layout_constraintTop_toBottomOf="@id/pod_search_input_layout" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
