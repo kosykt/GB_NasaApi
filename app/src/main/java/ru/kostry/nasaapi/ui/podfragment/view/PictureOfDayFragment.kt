@@ -50,12 +50,6 @@ class PictureOfDayFragment : Fragment() {
             pcdFragment = this@PictureOfDayFragment
         }
 
-        bottomSheetResponseText =
-            BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_response_text_include)!!)
-
-        bottomSheetSettings =
-            BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_settings_include)!!)
-
         binding.podSearchInputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data =
@@ -65,7 +59,8 @@ class PictureOfDayFragment : Fragment() {
         val observer = Observer<PODApiStatus> { renderData(it) }
         podViewModel.status.observe(viewLifecycleOwner, observer)
 
-        setBottomAppBar(view)
+        initBottomAppBar(view)
+        initBottomSheet()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -94,48 +89,16 @@ class PictureOfDayFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showNasaVideo(videoId: String) {
-        val id = videoId.substring(30 until 41)
-        lifecycle.addObserver(binding.youtubePlayerView)
-        binding.youtubePlayerView.addYouTubePlayerListener(object :
-            AbstractYouTubePlayerListener() {
-            override fun onReady(youTubePlayer: YouTubePlayer) {
-                youTubePlayer.loadVideo(id, 0f)
-            }
-        })
+    private fun initBottomSheet() {
+        bottomSheetResponseText =
+            BottomSheetBehavior.from(view?.findViewById(R.id.bottom_sheet_response_text_include)!!)
+
+        bottomSheetSettings =
+            BottomSheetBehavior.from(view?.findViewById(R.id.bottom_sheet_settings_include)!!)
+
     }
 
-    private fun bottomSheetOpener(
-        closedBottomSheet: BottomSheetBehavior<ConstraintLayout>,
-        openedBottomSheet: BottomSheetBehavior<ConstraintLayout>,
-    ) {
-        closedBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-        bottomSheetState(openedBottomSheet)
-    }
-
-    private fun loadImageHD(imgUrl: String?, isBoolean: Boolean) {
-        imgUrl?.let {
-            val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
-            binding.podImageView.load(imgUri)
-            binding.podImageView.load(imgUri) {
-                placeholder(R.drawable.loading_animation)
-                error(R.drawable.ic_broken_image)
-            }
-        }
-        isLoadedHD = isBoolean
-    }
-
-    private fun bottomSheetState(
-        bottomSheet: BottomSheetBehavior<ConstraintLayout>,
-    ) {
-        if (bottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
-            bottomSheet.state = BottomSheetBehavior.STATE_HALF_EXPANDED
-        } else {
-            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
-    }
-
-    private fun setBottomAppBar(view: View) {
+    private fun initBottomAppBar(view: View) {
         val context = activity as MainActivity
         context.setSupportActionBar(view.findViewById(R.id.bottom_app_bar))
         setHasOptionsMenu(true)
@@ -167,6 +130,48 @@ class PictureOfDayFragment : Fragment() {
             podViewModel.uri.value?.let { showNasaVideo(it) }
         }
     }
+
+    private fun showNasaVideo(videoId: String) {
+        val id = videoId.substring(30 until 41)
+        lifecycle.addObserver(binding.youtubePlayerView)
+        binding.youtubePlayerView.addYouTubePlayerListener(object :
+            AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                youTubePlayer.loadVideo(id, 0f)
+            }
+        })
+    }
+
+    private fun loadImageHD(imgUrl: String?, isBoolean: Boolean) {
+        imgUrl?.let {
+            val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+            binding.podImageView.load(imgUri)
+            binding.podImageView.load(imgUri) {
+                placeholder(R.drawable.loading_animation)
+                error(R.drawable.ic_broken_image)
+            }
+        }
+        isLoadedHD = isBoolean
+    }
+
+    private fun bottomSheetState(
+        bottomSheet: BottomSheetBehavior<ConstraintLayout>,
+    ) {
+        if (bottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            bottomSheet.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        } else {
+            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+    }
+
+    private fun bottomSheetOpener(
+        closedBottomSheet: BottomSheetBehavior<ConstraintLayout>,
+        openedBottomSheet: BottomSheetBehavior<ConstraintLayout>,
+    ) {
+        closedBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetState(openedBottomSheet)
+    }
+
 
     private fun bindResponseText(explanation: String?, title: String?) {
         binding.apply {

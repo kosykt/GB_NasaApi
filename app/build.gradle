@@ -44,6 +44,10 @@ android {
 
 dependencies {
 
+    //ViewPager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    //YouTube player
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
     //Retrofit
