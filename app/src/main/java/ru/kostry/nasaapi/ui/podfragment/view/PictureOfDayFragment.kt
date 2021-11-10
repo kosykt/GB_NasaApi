@@ -95,7 +95,7 @@ class PictureOfDayFragment : Fragment() {
     }
 
     private fun showNasaVideo(videoId: String) {
-        val id = videoId.substring(30 until videoId.indexOf("?"))
+        val id = videoId.substring(30 until 41)
         lifecycle.addObserver(binding.youtubePlayerView)
         binding.youtubePlayerView.addYouTubePlayerListener(object :
             AbstractYouTubePlayerListener() {
